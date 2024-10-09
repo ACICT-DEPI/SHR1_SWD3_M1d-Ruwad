@@ -137,7 +137,10 @@ input {
 .grid {
     display: grid;
 }
-
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+}
 /*=============== HEADER SECTION ===============*/
 
 
@@ -159,7 +162,18 @@ input {
 
 
 /*=============== BUTTONS ===============*/
-
+.button{
+    display: inline-block;
+    background-color: var(--first-color);
+    color: #fff;
+    padding: 1rem 1.75rem;
+    border-radius: .5rem;
+    font-weight: var(--font-medium);
+    transition: .3s;
+    &:hover{
+        background-color: var(--first-color-alt);
+    }
+}
 
 
 /*========== DISCOUNT SECTION ==========*/
@@ -209,25 +223,215 @@ input {
 
 
 /*=============== SCROLL UP ===============*/
-
+.scrollUp{
+    position: fixed;
+    right: 1rem;
+    bottom: -30%;
+    background-color: var(--first-color);
+    border-radius: .4rem;
+    display: inline-flex;
+    padding: .25rem;
+    z-index: var(--z-tooltip);
+    opacity: .8;
+    transition: .3;
+    &:hover{
+        opacity: 1;
+    }
+    .scrollup-icon{
+        font-size: 1.5rem;
+        color: white;
+    }
+}
 
 /* Show Scroll Up*/
+.show-scroll{
+    bottom: 3rem;
+}
 
 
 /*=============== SCROLL BAR ===============*/
-
+::-webkit-scrollbar{
+    width: .6rem;
+    background-color: var(--scroll-bar-color);
+    border-radius: .5rem;
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--scroll-thumb-color);
+    border-radius: .5rem;
+}
 
 /*=============== LOGIN ===============*/
+.login{
+    position: fixed;
+    background-color: var(--body-color);
+    z-index: var(--z-fixed);
+    width: 420px;
+    box-shadow: -2px 0 4px var(--shadow);
+    height: 100%;
+    top: 0;
+    right: -100%;
+    padding: 3.5rem 2rem;
+    transition: .3s;
+    .login__close{
+        font-size: 2rem;
+        color: var(--title-color);
+        position: absolute;
+        top: 1.25rem ;
+        right: .9rem;
+        cursor: pointer;
+    }
+    .login__tittle-center{
+        font-size: var(--h2-font-size);
+        text-align: center;
+        margin-bottom:var(--mb-3) ;
 
+    }
+    .login__from{
+        row-gap: 1.5rem;
+        .login__content{
+            background-color: var(--container-color);
+            border-radius: .5rem;
+            padding: .75rem 1rem .25rem;
+            .login__label{
+                font-size: var(--small-font-size);
+                color: var(--title-color);
+
+            }
+            .login__input{
+                width: 100%;
+                background-color: var(--container-color);
+                color: var(--text-color);
+                font-size: var(--normal-font-size);
+                padding: .25rem .5rem .5rem 0;
+
+            }
+            
+
+        }
+        .signup{
+            color: var(--title-color);
+            font-size: var(--small-font-size);
+            font-weight: var(--font-medium);
+            a{
+                color: var(--first-color);
+            }
+        }
+
+    }
+}
 
 /* Show login */
-
+.show-login{
+    right: 0;
+}
 
 /*=============== CART ===============*/
+.cart{
+    position: fixed;
+    background-color: var(--body-color);
+    z-index: var(--z-fixed);
+    width: 420px;
+    box-shadow: -2px 0 4px var(--shadow);
+    height: 100%;
+    top: 0;
+    right: -100%;
+    padding: 3.5rem 2rem;
+    transition: .3s;
+    .cart__close{
+        font-size: 2rem;
+        color: var(--title-color);
+        position: absolute;
+        top: 1.25rem ;
+        right: .9rem;
+        cursor: pointer;
+    }
+    .cart__title-center{
+        font-size: var(--h2-font-size);
+        text-align: center;
+        margin-bottom:var(--mb-3) ;
 
+    }
+    .cart__container{
+        display: grid;
+        row-gap: 1.5rem;
+        .cart__card{
+            display: flex;
+            align-items: center;
+            column-gap: 1rem;
+            .cart__box{
+                background-color: var(--container-color);
+                padding: .75rem 1.25rem;
+                display: flex;
+                align-items: center;
+                .cart__img{
+                    width: 85px;
+                }
+            }
+            .cart__details{
+                .cart__title{
+                    font-size: var(--normal-font-size);
+                    margin-bottom: var(--mb-0-5);
+                }
+                .cart__price{
+                    display: block;
+                    font-size: var(--small-font-size);
+                    color: var(--first-color);
+                    margin-bottom: var(--mb-1-5);
+                }
+                .cart__amount
+                {
+                    display: flex;
+                    align-items: center;
+                    column-gap: 3rem;
+                    .cart__amount-content{
+                        display: flex;
+                        align-items: center;
+                        column-gap: 1rem;
+                        .cart__amount-box{
+                            display: inline-flex;
+                            padding: .25rem;
+                            background-color: var(--container-color);
+                            cursor: pointer;
+                        }
+
+                    }
+                    .cart__amount-trash{
+                        font-size: 1.15rem;
+                        color: var(--first-color);
+                        cursor: pointer;
+
+                    }
+                    
+                }
+            }
+        }
+    }
+    .cart__prices{
+        margin-top: 6rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        span.cart__prices-item,
+        span.cart__prices-total{
+            color: var(--title-color);
+
+        }
+        span.cart__prices-item{
+            font-size: var(--small-font-size);
+
+        }
+        span.cart__prices-total{
+            font-size: var(--h3-font-size);
+            font-weight: var(--font-medium);
+        }
+
+    }
+}
 
 /* Show cart */
-
+.show-cart{
+    right: 0;
+}
 
 /*=============== LIGHTBOX ===============*/
 
