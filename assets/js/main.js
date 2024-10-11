@@ -76,7 +76,7 @@ if(loginButton){
 /*=============== CHANGE BACKGROUND HEADER ===============*/
 // function scrollHeader() {
 //     const header = document.getElementById("header");
-//     // When the scroll is greater than 50 viewport height, add the scroll-header class to the header tag
+     // When the scroll is greater than 50 viewport height, add the scroll-header class to the header tag
 //     if(this.scrollY >= 50) header.classList.add("scroll-header"); else header.classList.remove("scroll-header");
 // }
 // window.addEventListener("scroll", scrollHeader);
@@ -102,8 +102,33 @@ if(loginButton){
 
 
 /*=============== QUESTIONS ACCORDION ===============*/
+// const accordionItem = document.querySelectorAll(".questions__item");
 
+// accordionItem.forEach((item) => {
+//     const accordionHeader = item.querySelector(".questions__header");
 
+//     accordionHeader.addEventListener("click", () => {
+//         const openItem = document.querySelector(".accordion-open");
+
+//         toggleAccordion(item);
+
+//         if(openItem && openItem !== item) {
+//             toggleItem(openItem);
+//         }
+//     })
+// });
+
+// const toggleItem = (item) => {
+//     const accordionContent = item.querySelector(".questions__content");
+
+//     if(item.classList.contains("accordion-open")) {
+//         accordionContent.removeAttribute("style");
+//         item.classList.remove("accordion-open");
+//     }
+//     else {
+//         accordionContent.style.height = accordionContent.scrollHeight + "px";
+//         item.classList.add("accordion-open");
+//     }
 /*=============== STYLE SWITCHER ===============*/
 
 /*=============== register handel ===============*/
