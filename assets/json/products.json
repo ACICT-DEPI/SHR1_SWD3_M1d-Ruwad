@@ -1,0 +1,16 @@
+[
+    
+    {
+      "id": 1,
+      "type":"Jacket's",
+      "Gender":"female",
+      "img": ["../img/details-1.png","../img/details-2.png","../img/details-3.png","../img/details-4.png"],
+      "img_hover": "",
+      "name": "Windbreaker , Denim - Jacket",
+      "price": 14.99 ,
+      "old_price": 29.99,
+      "rate":4,
+      "no-reviews":40,
+      "description":"light Gray Solid Top ,has a boat neck, 3/4 sleeves  "
+    }
+  ]

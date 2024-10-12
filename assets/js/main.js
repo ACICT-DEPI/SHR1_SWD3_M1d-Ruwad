@@ -1,14 +1,27 @@
 
 /*=============== SHOW MENU ===============*/
 
+const navMenu=document.getElementById("nav-menu"),
+        navToggle=document.getElementById("nav-toggle"),
+        navClose=document.getElementById("nav-close")
 
 /*===== MENU SHOW =====*/
 /* Validate if constant exists */
 
+if(navToggle){
+    navToggle.addEventListener("click",()=>{
+        navMenu.classList.add("show-menu")
+    })
+}
 
 /*===== MENU HIDDEN =====*/
 /* Validate if constant exists */
 
+if(navClose){
+    navClose.addEventListener("click",()=>{
+        navMenu.classList.remove("show-menu")
+    })
+}
 
 /*=============== SHOW CART ===============*/
 const cart=document.getElementById("cart"),
@@ -50,12 +63,30 @@ if(loginButton){
 
 
 /*=============== HOME SWIPER ===============*/
-
+// var homeSwiper = new Swiper(".home-swiper", {
+//     spaceBetween: 30,
+//     loop: true,
+    
+//     pagination: {
+//         el: ".swiper-pagination",
+//         clickable: true,
+//     },
+// });
 
 /*=============== CHANGE BACKGROUND HEADER ===============*/
-
-
+function scrollHeader() {
+    const header = document.getElementById("header");
+    //  When the scroll is greater than 50 viewport height, add the scroll-header class to the header tag
+    if(this.scrollY >= 50) header.classList.add("scroll-header"); else header.classList.remove("scroll-header");
+}
+window.addEventListener("scroll", scrollHeader);
 /*=============== NEW SWIPER ===============*/
+// var newSwiper = new Swiper(".new-swiper", {
+//     spaceBetween: 16,
+//     centeredSlides: true,
+//     slidesPerView: "auto",
+//     loop: true,
+// });
 
 
 /*=============== SHOW SCROLL UP ===============*/ 
@@ -71,8 +102,33 @@ window.addEventListener("scroll",scrollUp)
 
 
 /*=============== QUESTIONS ACCORDION ===============*/
+// const accordionItem = document.querySelectorAll(".questions__item");
 
+// accordionItem.forEach((item) => {
+//     const accordionHeader = item.querySelector(".questions__header");
 
+//     accordionHeader.addEventListener("click", () => {
+//         const openItem = document.querySelector(".accordion-open");
+
+//         toggleAccordion(item);
+
+//         if(openItem && openItem !== item) {
+//             toggleItem(openItem);
+//         }
+//     })
+// });
+
+// const toggleItem = (item) => {
+//     const accordionContent = item.querySelector(".questions__content");
+
+//     if(item.classList.contains("accordion-open")) {
+//         accordionContent.removeAttribute("style");
+//         item.classList.remove("accordion-open");
+//     }
+//     else {
+//         accordionContent.style.height = accordionContent.scrollHeight + "px";
+//         item.classList.add("accordion-open");
+//     }
 /*=============== STYLE SWITCHER ===============*/
 
 /*=============== register handel ===============*/
