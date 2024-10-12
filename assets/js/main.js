@@ -31,7 +31,7 @@ if(cartShop){
 
 /*=============== SHOW LOGIN ===============*/
 const login=document.getElementById("login"),
-        loginButton=document.getElementById("login-button"),
+        loginButton=document.getElementById("login-toggle"),
         loginClose=document.getElementById("login-close")
 
 /*===== LOGIN SHOW =====*/
@@ -59,14 +59,14 @@ if(loginButton){
 
 
 /*=============== SHOW SCROLL UP ===============*/ 
-// function scrollUp() {
-//     const scrolUp=document.getElementById("scroll-up");
-//     if(this.scrollY >= 350){ scrolUp.classList.add("show-scroll");}
-// else{
-//     scrolUp.classList.remove("show-scroll")
-// }
-// }
-// window.addEventListener("scroll",scrollUp)
+function scrollUp() {
+    const scrolUp=document.getElementById("scroll-up");
+    if(this.scrollY >= 350){ scrolUp.classList.add("show-scroll");}
+else{
+    scrolUp.classList.remove("show-scroll")
+}
+}
+window.addEventListener("scroll",scrollUp)
 /*=============== LIGHT BOX ===============*/
 
 
