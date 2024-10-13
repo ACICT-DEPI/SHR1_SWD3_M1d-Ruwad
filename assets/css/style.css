@@ -757,7 +757,72 @@ input {
 
 
 /*=============== CONTACT PAGE ===============*/
+.contact__container
+{
+    grid-template-columns: 0.9fr 1.1fr;
+    column-gap: 1.5rem;
+}
 
+.contact__information
+{
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--mb-2);
+}
+
+.contact__icon
+{
+    font-style: 2rem;
+    color: var(--first-color);
+    margin-right: var(--mb-0-75);
+}
+
+.contact__title
+{
+    font-style: var(--h3-font-size);
+    font-weight: var(--font-medium);
+}
+
+.contact__subtitle
+{
+    font-style: var(--small-font-size);
+    color: var(--text-color);
+}
+
+.contact__form
+{
+    row-gap: 1.5rem;
+}
+
+.contact__content
+{
+    background-color: var(--container-color);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem 0.25rem;
+}
+
+.contact__label
+{
+    font-size: var(--smaller-font-size);
+    color: var(--title-color);
+}
+
+.contact__inputs
+{
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+}
+
+.contact__input
+{
+    width: 100%;
+    background-color: var(--container-color);
+    color: var(--text-color);
+    font-size: var(--normal-font-size);
+    border: none;
+    outline: none;
+    padding: 0.25rem 0.5rem 0.5rem 0;
+}
 
 /*=============== FOOTER ===============*/
 .footer
@@ -1150,6 +1215,12 @@ input {
         padding: 0 1.25rem 1.25rem 2.5rem;
     }
 
+    .contact__inputs
+    {
+        grid-template-columns: 1fr;
+        row-gap: 1.5rem;
+    }
+
     .details__container
     {
         grid-template-columns: 1.1fr .9fr;
@@ -1284,6 +1355,12 @@ input {
     {
         grid-template-columns: 1fr;
         row-gap: .8rem;
+    }
+
+    .contact__container
+    {
+        grid-template-columns: 1fr;
+        row-gap: 2rem;
     }
 
     .details__container
