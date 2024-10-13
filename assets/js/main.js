@@ -102,33 +102,37 @@ window.addEventListener("scroll",scrollUp)
 
 
 /*=============== QUESTIONS ACCORDION ===============*/
-// const accordionItem = document.querySelectorAll(".questions__item");
 
-// accordionItem.forEach((item) => {
-//     const accordionHeader = item.querySelector(".questions__header");
+const accordionItem = document.querySelectorAll(".questions__item");
 
-//     accordionHeader.addEventListener("click", () => {
-//         const openItem = document.querySelector(".accordion-open");
+accordionItem.forEach((item) => {
+    const accordionHeader = item.querySelector(".questions__header");
 
-//         toggleAccordion(item);
+    accordionHeader.addEventListener("click", () => {
+        const openItem = document.querySelector(".accordion-open");
 
-//         if(openItem && openItem !== item) {
-//             toggleItem(openItem);
-//         }
-//     })
-// });
+        toggleItem(item);
 
-// const toggleItem = (item) => {
-//     const accordionContent = item.querySelector(".questions__content");
+        if(openItem && openItem !== item) {
+            toggleItem(openItem);
+        }
+    })
+});
 
-//     if(item.classList.contains("accordion-open")) {
-//         accordionContent.removeAttribute("style");
-//         item.classList.remove("accordion-open");
-//     }
-//     else {
-//         accordionContent.style.height = accordionContent.scrollHeight + "px";
-//         item.classList.add("accordion-open");
-//     }
+const toggleItem = (item) => {
+    const accordionContent = item.querySelector(".questions__content");
+
+    if(item.classList.contains("accordion-open")) {
+        accordionContent.removeAttribute("style");
+        item.classList.remove("accordion-open");
+    }
+    else {
+        accordionContent.style.height = accordionContent.scrollHeight + "px";
+        item.classList.add("accordion-open");
+    }
+}
+
+
 /*=============== STYLE SWITCHER ===============*/
 
 /*=============== register handel ===============*/
