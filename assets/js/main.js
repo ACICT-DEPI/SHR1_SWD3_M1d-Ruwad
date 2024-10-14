@@ -44,24 +44,7 @@ if(cartShop){
 }
 
 
-/*=============== SHOW LOGIN ===============*/
-const login=document.getElementById("login"),
-        loginButton=document.getElementById("login-toggle"),
-        loginClose=document.getElementById("login-close")
 
-/*===== LOGIN SHOW =====*/
-/* Validate if constant exists */
-if(loginButton){
-    loginButton.addEventListener("click",()=>{
-        login.classList.add("show-login")
-    })
-/*===== LOGIN HIDDEN =====*/
-/* Validate if constant exists */
-
-    loginClose.addEventListener("click",()=>{
-        login.classList.remove("show-login")
-    })
-}
 
 
 /*=============== HOME SWIPER ===============*/
@@ -137,6 +120,52 @@ const toggleItem = (item) => {
 
 /*=============== STYLE SWITCHER ===============*/
 
+/*=============== login handle ===============*/
+/*=============== SHOW LOGIN ===============*/
+const   login=document.getElementById("login"),
+        loginButton=document.getElementById("login-toggle"),
+        loginClose=document.getElementById("login-close")
+
+
+// Login logic
+let isAuthanticated;
+const loginFrom=document.getElementById('login-form')
+if(loginFrom){
+
+loginFrom.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const errorMessageDiv = document.getElementById('error-message');
+
+    const user = users.find(u => u.username === username && u.password === password);
+    if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        
+        window.location.href = 'index.html'; // Redirect to home
+        isAuthanticated=true
+        login.classList.remove("show-login")
+    } else {
+        errorMessageDiv.textContent = 'Invalid email or password!';
+    }
+});
+    
+}
+
+/*===== LOGIN SHOW =====*/
+/* Validate if constant exists */
+if(loginButton &&loginClose){
+    loginButton.addEventListener("click",()=>{
+        login.classList.add("show-login")
+    })
+/*===== LOGIN HIDDEN =====*/
+/* Validate if constant exists */
+
+    loginClose.addEventListener("click",()=>{
+        login.classList.remove("show-login")
+    })
+}
+
 /*=============== register handel ===============*/
 const users = JSON.parse(localStorage.getItem('users')) || [];
 
@@ -175,6 +204,7 @@ document.getElementById('register-form')?.addEventListener('submit', function (e
         phone: regPhone,
         address: regAddress
     };
+console.log(newUser);
 
     // Save the new user in the users array and localStorage
     users.push(newUser);
@@ -184,27 +214,7 @@ document.getElementById('register-form')?.addEventListener('submit', function (e
     login.classList.add("show-login")
 });
 
-/*=============== login handle ===============*/
-// Login logic
-let isAuthanticated;
-const loginFrom=document.getElementById('login-form')
-loginFrom.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const errorMessageDiv = document.getElementById('error-message');
 
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        
-        window.location.href = 'index.html'; // Redirect to home
-        isAuthanticated=true
-        login.classList.remove("show-login")
-    } else {
-        errorMessageDiv.textContent = 'Invalid email or password!';
-    }
-});
 /*=============== dynamic products  ===============*/
 let shopItems=document.getElementById("shop__items");
 let cartPricesInSection=document.getElementById("cart__prices")
@@ -368,7 +378,10 @@ function update (id)  {
 }
 let totalSumProduct = () => {
     let basketSum = document.querySelector(".cart-counter")
-    return basketSum.innerHTML = basket.reduce((x, y) => x + y.item, 0)
+    if(basketSum){
+
+        return basketSum.innerHTML = basket.reduce((x, y) => x + y.item, 0)
+    }
 }
 totalSumProduct()
 let totalAmount = () => {
@@ -409,8 +422,3 @@ let removeItem = (id) => {
     localStorage.setItem("productSelected", JSON.stringify(basket))
 
 }
-//  cartPricesInSection.innerHTML=`<span class="cart__prices-item">${totalSumProduct()} item</span>
-//             <span class="cart__prices-total" id="cart__prices-total">$0 </span>`
-
-// cartPricesInSection.innerHTML=`<span class="cart__prices-item">0 item</span>
-//                     <span class="cart__prices-total" id="cart__prices-total">$0 </span>`;
