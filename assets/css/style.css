@@ -277,6 +277,68 @@ position: relative;
 
 
 /*=============== MAIN ===============*/
+.registration-box {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #fff;
+    max-width: 450px;
+    height: 60vh;
+    position: relative;
+    top: 70px;
+    left: 700px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--shadow);
+    text-align: center; /* Center all text inside the form-container */
+
+}
+
+.main form {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    /* background-color: red; */
+    
+}
+
+.input-group {
+    margin-bottom: 10px;
+    text-align: left; /* Keep input labels and fields left-aligned */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--first-color);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
 /*========== HOME SECTION ==========*/
 .home__content {
     padding: 9rem 0 2rem;
@@ -1673,6 +1735,12 @@ position: relative;
     .footer__copy
     {
         margin-top: 4.5rem;
+    }
+
+    .registration-box {
+    position: relative;
+    left: 15%;
+    
     }
 }
 
