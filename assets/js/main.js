@@ -1,4 +1,6 @@
 
+/*=============== card localstorage   ===============*/
+let carts =  [];
 /*=============== SHOW MENU ===============*/
 
 const navMenu=document.getElementById("nav-menu"),
@@ -24,7 +26,7 @@ if(navClose){
 }
 
 /*=============== SHOW CART ===============*/
-const cart=document.getElementById("cart"),
+const cartShow=document.getElementById("cart"),
         cartShop=document.getElementById("cart-shop"),
         cartClose=document.getElementById("cart-close")
 
@@ -32,12 +34,12 @@ const cart=document.getElementById("cart"),
 /* Validate if constant exists */
 if(cartShop){
     cartShop.addEventListener("click",()=>{
-        cart.classList.add("show-cart")
+        cartShow.classList.add("show-cart")
     })
 /*===== CART HIDDEN =====*/
 /* Validate if constant exists */
     cartClose.addEventListener("click",()=>{
-        cart.classList.remove("show-cart")
+        cartShow.classList.remove("show-cart")
     })
 }
 
@@ -63,15 +65,15 @@ if(loginButton){
 
 
 /*=============== HOME SWIPER ===============*/
-// var homeSwiper = new Swiper(".home-swiper", {
-//     spaceBetween: 30,
-//     loop: true,
+var homeSwiper = new Swiper(".home-swiper", {
+    spaceBetween: 30,
+    loop: true,
     
-//     pagination: {
-//         el: ".swiper-pagination",
-//         clickable: true,
-//     },
-// });
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+});
 
 /*=============== CHANGE BACKGROUND HEADER ===============*/
 function scrollHeader() {
@@ -81,12 +83,12 @@ function scrollHeader() {
 }
 window.addEventListener("scroll", scrollHeader);
 /*=============== NEW SWIPER ===============*/
-// var newSwiper = new Swiper(".new-swiper", {
-//     spaceBetween: 16,
-//     centeredSlides: true,
-//     slidesPerView: "auto",
-//     loop: true,
-// });
+var newSwiper = new Swiper(".new-swiper", {
+    spaceBetween: 16,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    loop: true,
+});
 
 
 /*=============== SHOW SCROLL UP ===============*/ 
@@ -102,33 +104,37 @@ window.addEventListener("scroll",scrollUp)
 
 
 /*=============== QUESTIONS ACCORDION ===============*/
-// const accordionItem = document.querySelectorAll(".questions__item");
 
-// accordionItem.forEach((item) => {
-//     const accordionHeader = item.querySelector(".questions__header");
+const accordionItem = document.querySelectorAll(".questions__item");
 
-//     accordionHeader.addEventListener("click", () => {
-//         const openItem = document.querySelector(".accordion-open");
+accordionItem.forEach((item) => {
+    const accordionHeader = item.querySelector(".questions__header");
 
-//         toggleAccordion(item);
+    accordionHeader.addEventListener("click", () => {
+        const openItem = document.querySelector(".accordion-open");
 
-//         if(openItem && openItem !== item) {
-//             toggleItem(openItem);
-//         }
-//     })
-// });
+        toggleItem(item);
 
-// const toggleItem = (item) => {
-//     const accordionContent = item.querySelector(".questions__content");
+        if(openItem && openItem !== item) {
+            toggleItem(openItem);
+        }
+    })
+});
 
-//     if(item.classList.contains("accordion-open")) {
-//         accordionContent.removeAttribute("style");
-//         item.classList.remove("accordion-open");
-//     }
-//     else {
-//         accordionContent.style.height = accordionContent.scrollHeight + "px";
-//         item.classList.add("accordion-open");
-//     }
+const toggleItem = (item) => {
+    const accordionContent = item.querySelector(".questions__content");
+
+    if(item.classList.contains("accordion-open")) {
+        accordionContent.removeAttribute("style");
+        item.classList.remove("accordion-open");
+    }
+    else {
+        accordionContent.style.height = accordionContent.scrollHeight + "px";
+        item.classList.add("accordion-open");
+    }
+}
+
+
 /*=============== STYLE SWITCHER ===============*/
 
 /*=============== register handel ===============*/
@@ -178,7 +184,7 @@ document.getElementById('register-form')?.addEventListener('submit', function (e
     login.classList.add("show-login")
 });
 
-/*=============== login handel ===============*/
+/*=============== login handle ===============*/
 // Login logic
 let isAuthanticated;
 const loginFrom=document.getElementById('login-form')
@@ -199,3 +205,212 @@ loginFrom.addEventListener('submit', function (e) {
         errorMessageDiv.textContent = 'Invalid email or password!';
     }
 });
+/*=============== dynamic products  ===============*/
+let shopItems=document.getElementById("shop__items");
+let cartPricesInSection=document.getElementById("cart__prices")
+let emptyCard=document.getElementById("empty-card")
+let basket=JSON.parse(localStorage.getItem('productSelected')) ||[]
+let products=[];
+let label = document.getElementById("cart__prices-total")
+let cartContainer=document.getElementById("cart__container")
+let totalCartItems=document.getElementById("cart__prices-item")
+    // ###################################################################increament number
+
+window.addEventListener('DOMContentLoaded', () => {
+fetch('/assets/json/products.json')
+        .then(response => response.json())
+        .then(data => {
+            return data.forEach(product => {
+                products.push(product)
+                const productDiv = document.createElement('div');
+                productDiv.classList.add('product');
+                productDiv.innerHTML =`<div class="shop__content" id="${product.id}">
+                                            <a href="details.html"  '>
+                                                <div class="shop__tag" >${product.category}</div>
+                                                <img src="${product.images[0]}" alt="${product.name}" class="shop__img">
+                                                <h3 class="shop__title">${product.name}</h3>
+                                                <span class="shop__subtitle">Accessory </span>
+                                                <div class="shop__prices">
+                                                    <span class="shop__price">$${product.price}</span>
+                                                    <span class="shop__discounts">$${product.stock}</span>
+                                                </div>
+                                            </a>
+                                            <i class="bx bx-cart-alt shop__icon add-to-card button shop__button" onclick="addToCart(${product.id})"></i>
+                                        </div>`;
+                                        if(shopItems){
+
+                                            shopItems.appendChild(productDiv);
+                                        }
+                 return products
+            });
+        });
+         // Add to cart function
+    window.addToCart = function (productId) {
+        fetch('/assets/json/products.json')
+            .then(response => response.json())
+            .then(data => {
+            products.push(data)
+                // const product = data.find(p => p.id === productId);
+                //     products.push(product)
+                // carts=carts.filter(cart=>cart.id!=product.id)
+                increament(productId)
+                displayCart();
+            });
+    };
+    // Display cart items
+    displayCart()
+    
+    totalAmount()
+})
+function displayCart() {
+    fetch('/assets/json/products.json')
+        .then(response => response.json())
+        .then(data => {
+            if (basket.length !== 0) {
+        emptyCard.innerHTML=``;
+         (cartContainer.innerHTML = basket.map((item) => {
+            let productSelected;
+            
+            productSelected = data.find((x) => x.id === item.id)||[]
+            if(productSelected){
+            // for empty card section
+           
+        return  `   <article class="cart__card">
+                        <div class="cart__box">
+                            <img src="${productSelected.images[0]}" alt="${productSelected.name}" class="cart__img">
+                        </div>
+                        <div class="cart__details">
+                                <h3 class="cart__title">
+                                ${productSelected.name}
+                                </h3>
+                                <span class="cart__price">$${productSelected.price * item.item}</span>
+                            <div class="cart__amount">
+                                <div class="cart__amount-content">
+                                    <span class="cart__amount-box">
+                                        <i class="bx bx-minus" onclick="decrement(${productSelected.id})"></i>
+                                    </span>
+                                    <span class="cart__amount-number" data-id=${productSelected.id}>${productSelected ? item.item : "1"}
+                                    </span>
+                                    <span class="cart__amount-box">
+                                        <i class="bx bx-plus"  onclick="increament(${productSelected.id})"></i>
+                                    </span>
+                                </div>
+                                <i class="bx bx-trash-alt cart__amount-trash" onclick="removeItem(${productSelected.id})"></i>
+                            </div>
+                        </div>
+                    </article>`;
+                }
+            }).join(" "))}else{
+                //################################# for empty card section
+                    emptyCard.innerHTML =`
+                    <h2 class='cart-empty'>
+                    Cart is empty </h2>
+                    `;
+                    
+                    return cartContainer.innerHTML=``
+                }
+        })
+           
+    }
+
+
+
+let increament = (id) => {
+    let selectedItem = id
+    let productIsSelectedAgain = basket.find((cart) => cart.id == selectedItem)
+    if (!productIsSelectedAgain ) {
+        basket.push(
+            {
+                id: selectedItem,
+                item: 1,
+            }
+        )
+        
+    } else {
+        productIsSelectedAgain.item+=1; 
+    }
+    update(selectedItem);
+    localStorage.setItem("productSelected", JSON.stringify(basket))
+    displayCart()
+}
+
+// ###################################################################decrement number
+   let decrement = (id) => {
+    let selectedItem = id
+    productIsSelectedAgain = basket.find((cart) => cart.id == selectedItem)
+    if (productIsSelectedAgain == undefined) return;
+    else if (productIsSelectedAgain == 0) { return }
+    else {
+        productIsSelectedAgain.item -= 1
+    }
+    update(selectedItem);
+    basket = basket.filter((cart) => cart.item !== 0)
+    localStorage.setItem("productSelected", JSON.stringify(basket))
+    displayCart()
+}
+// ###################################################################EVERY update
+function update (id)  {
+    let selectditems = basket.find((cart) => cart.id == id)
+    if (selectditems.item < 0) {
+        return
+    }
+    else {
+   if(document.querySelector(`[data-id="${id}"]`)){
+    
+       document.querySelector(`[data-id="${id}"]`).innerHTML=selectditems.item
+       if(selectditems.item<=0){
+        
+       }
+   }
+    }
+    totalAmount()
+    totalSumProduct()
+}
+let totalSumProduct = () => {
+    let basketSum = document.querySelector(".cart-counter")
+    return basketSum.innerHTML = basket.reduce((x, y) => x + y.item, 0)
+}
+totalSumProduct()
+let totalAmount = () => {
+    if (basket.length !== 0) {
+        fetch('/assets/json/products.json')
+        .then(response => response.json())
+        .then(data => {
+        let ammount = basket.map((x) => {
+            let { id, item } = x;
+            
+            selectedProduct = data.find((y) => y.id == id) || [];
+            return item * selectedProduct.price
+        }).reduce((x, y) => x + y, 0);
+     label.innerHTML = `
+       $ ${Math.floor(ammount)}`
+       totalCartItems.innerHTML=`${totalSumProduct()} item`
+    })
+    }else{
+         label.innerHTML = `
+        $ 0`
+       totalCartItems.innerHTML=`0 item`
+    }
+}
+totalAmount()
+let removeAll = () => {
+    basket = []
+    createCartItem();
+    totalSumProduct()
+    localStorage.setItem("productSelected", JSON.stringify(carts))
+}
+let removeItem = (id) => {
+    let itemselected = id
+    basket = basket.filter((x) => x.id !== itemselected
+    )
+    displayCart();
+    totalAmount();
+    totalSumProduct()
+    localStorage.setItem("productSelected", JSON.stringify(basket))
+
+}
+//  cartPricesInSection.innerHTML=`<span class="cart__prices-item">${totalSumProduct()} item</span>
+//             <span class="cart__prices-total" id="cart__prices-total">$0 </span>`
+
+// cartPricesInSection.innerHTML=`<span class="cart__prices-item">0 item</span>
+//                     <span class="cart__prices-total" id="cart__prices-total">$0 </span>`;
