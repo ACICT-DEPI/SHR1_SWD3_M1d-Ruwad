@@ -1736,6 +1736,12 @@ button:hover {
     {
         margin-top: 4.5rem;
     }
+
+    .registration-box {
+    position: relative;
+    left: 15%;
+    
+    }
 }
 
 @media screen and (max-width: 576px) 
