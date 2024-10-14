@@ -277,6 +277,69 @@ position: relative;
 
 
 /*=============== MAIN ===============*/
+main.registration-box {
+    margin-top: 100px;
+    margin-bottom: 50px;
+    background-color: #fff;
+    max-width: 450px;
+    height: fit-content;
+    margin-inline: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--shadow);
+    text-align: center; /* Center all text inside the form-container */
+    h2{
+        padding: 10px;
+        
+    }
+}
+
+.main form {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    /* background-color: red; */
+    
+}
+
+.input-group {
+    margin-bottom: 10px;
+    text-align: left; /* Keep input labels and fields left-aligned */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--first-color);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: var(--first-color-alt);
+}
 /*========== HOME SECTION ==========*/
 .home__content {
     padding: 9rem 0 2rem;
@@ -521,7 +584,7 @@ position: relative;
     border-radius: 1rem;
 }
 
-.step__card-number {
+.steps__card-number {
     display: inline-block;
     background-color: var(--first-color);
     color: #fff;
@@ -761,6 +824,7 @@ position: relative;
     column-gap: 3rem;
 }
 
+
 .product__images
 {
     grid-template-columns: repeat(2, 1fr);
@@ -891,6 +955,7 @@ position: relative;
             cursor: pointer;
         }
 
+
     }
     .cart__amount-heart{
         font-size: 1.15rem;
@@ -902,6 +967,48 @@ position: relative;
 }
 
 /*=============== ABOUT PAGE ===============*/
+.about__container
+{
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 7rem;
+}
+
+.about__img
+{
+    width: 380px;
+    justify-self: center;
+}
+
+.about__title
+{
+    margin-bottom: var(--mb-1);
+    text-align: left;
+}
+
+.about__description
+{
+    margin-bottom: var(--mb-2);
+}
+
+.about__details
+{
+    display: grid;
+    row-gap: 1rem;
+}
+
+.about__details-description
+{
+    display: inline-flex;
+    column-gap: 0.5rem;
+    font-size: var(--small-font-size);
+}
+
+.about__details-icon
+{
+    font-size: 1rem;
+    color: var(--first-color);
+    margin-top: 0.15rem;
+}
 
 
 /*=============== BLOG PAGE ===============*/
@@ -1043,7 +1150,72 @@ position: relative;
 
 
 /*=============== CONTACT PAGE ===============*/
+.contact__container
+{
+    grid-template-columns: 0.9fr 1.1fr;
+    column-gap: 1.5rem;
+}
 
+.contact__information
+{
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--mb-2);
+}
+
+.contact__icon
+{
+    font-style: 2rem;
+    color: var(--first-color);
+    margin-right: var(--mb-0-75);
+}
+
+.contact__title
+{
+    font-style: var(--h3-font-size);
+    font-weight: var(--font-medium);
+}
+
+.contact__subtitle
+{
+    font-style: var(--small-font-size);
+    color: var(--text-color);
+}
+
+.contact__form
+{
+    row-gap: 1.5rem;
+}
+
+.contact__content
+{
+    background-color: var(--container-color);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem 0.25rem;
+}
+
+.contact__label
+{
+    font-size: var(--smaller-font-size);
+    color: var(--title-color);
+}
+
+.contact__inputs
+{
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+}
+
+.contact__input
+{
+    width: 100%;
+    background-color: var(--container-color);
+    color: var(--text-color);
+    font-size: var(--normal-font-size);
+    border: none;
+    outline: none;
+    padding: 0.25rem 0.5rem 0.5rem 0;
+}
 
 /*=============== FOOTER ===============*/
 .footer
@@ -1372,7 +1544,11 @@ position: relative;
 
 /*=============== BREAKPOINTS ===============*/
 /* For large devices */
-@media screen and (max-width: 1200px) {}
+@media screen and (max-width: 1200px) {
+    .home__img {
+        height: 400px;
+    }
+}
 
 @media screen and (max-width: 992px) 
 {
@@ -1381,6 +1557,70 @@ position: relative;
     {
         margin-left: var(--mb-1-5);
         margin-right: var(--mb-1-5);
+    }
+    .home__content {
+        padding: 8rem 0 2rem;
+    }
+
+    .home__img {
+        height: 300px;
+        transform: translateY(0);
+    }
+
+    .home__indicator {
+        bottom: initial;
+        left: initial;
+        top: 7rem;
+        right: 2rem;
+    }
+
+    .home__indicator::after {
+        top: -3rem;
+        height: 48px;
+    }
+
+    .home__details-img {
+        right: .5rem;
+        bottom: initial;
+    }
+
+    .home__description {
+        padding-right: 0;
+    }
+
+    .swiper-pagination {
+        margin-top: var(--mb-2);
+    }
+
+    .discount__container {
+        column-gap: 3rem;
+    }
+
+    .new__content {
+        width: 242px;
+        padding: 2rem 0 1.5rem 0;
+    }
+
+    .new__img {
+        width: 120px;
+    }
+
+    .new__img,
+    .new__subtitle {
+        margin-bottom: var(--mb-0-5);
+    }
+
+    .new__title {
+        font-size: var(--normal-font-size);
+    }
+
+    .steps__bg {
+        padding: 3rem 2rem 2rem;
+    }
+
+    .steps__container {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 2rem;
     }
 
     .section__title
@@ -1441,6 +1681,24 @@ position: relative;
         padding: 0 1.25rem 1.25rem 2.5rem;
     }
 
+
+    .contact__inputs
+    {
+        grid-template-columns: 1fr;
+        row-gap: 1.5rem;
+    }
+
+    .about__container
+    {
+        column-gap: 4rem;
+    }
+
+    .about__img
+    {
+        width: 280px;
+    }
+
+
     .details__container
     {
         grid-template-columns: 1.1fr .9fr;
@@ -1494,6 +1752,49 @@ position: relative;
         display: block;
     }
 
+    .home__content {
+        padding: 0;
+        grid-template-columns: 1fr;
+        row-gap: 1rem;
+    }
+
+    .home__img {
+        height: 250px;
+    }
+
+    .home__title {
+        margin-bottom: var(--mb-1);
+    }
+
+    .home__description {
+        margin-bottom: var(--mb-1-5);
+    }
+
+    .swiper-pagination {
+        margin-top: var(--mb-1-5);
+    }
+
+    .discount__container {
+        grid-template-columns: 1fr;
+        row-gap: 1.25rem;
+        padding: 2.5rem 0 1.5rem;
+        border-radius: 1rem;
+    }
+
+    .discount__img {
+        justify-self: center;
+        order: 1;
+    }
+
+    .discount__data {
+        padding-left: 0;
+    }
+
+    .newsletter__container {
+        grid-template-columns: .7fr;
+    }
+
+   
     .show-menu
     {
         right: 0;
@@ -1521,6 +1822,14 @@ position: relative;
         grid-template-columns: 1fr;
     }
 
+
+    .about__container
+    {
+        grid-template-columns: 1fr;
+        row-gap: 2rem;
+    }
+
+
     .details__container
     {
         grid-template-columns: 0.8fr;
@@ -1539,11 +1848,32 @@ position: relative;
     {
         margin-top: 4.5rem;
     }
+
+    .registration-box {
+    position: relative;
+    left: 15%;
+    
+    }
 }
 
 @media screen and (max-width: 576px) 
 {
+    .steps__container {
+        grid-template-columns: 1fr;
+    }
 
+    .steps__bg {
+        padding: 3rem 2rem 2rem;
+    }
+
+    .new__container {
+        grid-template-columns: 1fr;
+    }
+
+    .login,
+    .cart {
+        width: 100%;
+    }
     .shop__container
     {
         grid-template-columns: 0.8fr;
@@ -1577,6 +1907,14 @@ position: relative;
         row-gap: .8rem;
     }
 
+
+    .contact__container
+    {
+        grid-template-columns: 1fr;
+        row-gap: 2rem;
+    }
+
+
     .details__container
     {
         grid-template-columns: 1fr;
@@ -1586,6 +1924,32 @@ position: relative;
 /* For small devices */
 @media screen and (max-width: 320px) 
 {
+    .container {
+        margin-left: var(--mb-1);
+        margin-right: var(--mb-1);
+    }
+
+    .nav {
+        column-gap: 0;
+    }
+
+    .home__img {
+        height: 200px;
+    }
+
+    .home__buttons {
+        flex-direction: column;
+        width: max-content;
+        row-gap: 1rem;
+    }
+
+    .steps__bg {
+        padding: 2rem 1rem;
+    }
+
+    .steps__card {
+        padding: 1.5rem;
+    }
 
     .shop__container
     {
