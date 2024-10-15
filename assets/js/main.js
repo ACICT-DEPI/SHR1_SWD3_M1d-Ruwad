@@ -44,24 +44,7 @@ if(cartShop){
 }
 
 
-/*=============== SHOW LOGIN ===============*/
-const login=document.getElementById("login"),
-        loginButton=document.getElementById("login-toggle"),
-        loginClose=document.getElementById("login-close")
 
-/*===== LOGIN SHOW =====*/
-/* Validate if constant exists */
-if(loginButton){
-    loginButton.addEventListener("click",()=>{
-        login.classList.add("show-login")
-    })
-/*===== LOGIN HIDDEN =====*/
-/* Validate if constant exists */
-
-    loginClose.addEventListener("click",()=>{
-        login.classList.remove("show-login")
-    })
-}
 
 
 /*=============== HOME SWIPER ===============*/
@@ -189,6 +172,52 @@ themeColors();
 
 
 
+/*=============== login handle ===============*/
+/*=============== SHOW LOGIN ===============*/
+const   login=document.getElementById("login"),
+        loginButton=document.getElementById("login-toggle"),
+        loginClose=document.getElementById("login-close")
+
+
+// Login logic
+let isAuthanticated;
+const loginFrom=document.getElementById('login-form')
+if(loginFrom){
+
+loginFrom.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const errorMessageDiv = document.getElementById('error-message');
+
+    const user = users.find(u => u.username === username && u.password === password);
+    if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        
+        window.location.href = 'index.html'; // Redirect to home
+        isAuthanticated=true
+        login.classList.remove("show-login")
+    } else {
+        errorMessageDiv.textContent = 'Invalid email or password!';
+    }
+});
+    
+}
+
+/*===== LOGIN SHOW =====*/
+/* Validate if constant exists */
+if(loginButton &&loginClose){
+    loginButton.addEventListener("click",()=>{
+        login.classList.add("show-login")
+    })
+/*===== LOGIN HIDDEN =====*/
+/* Validate if constant exists */
+
+    loginClose.addEventListener("click",()=>{
+        login.classList.remove("show-login")
+    })
+}
+
 /*=============== register handel ===============*/
 const users = JSON.parse(localStorage.getItem('users')) || [];
 
@@ -227,6 +256,7 @@ document.getElementById('register-form')?.addEventListener('submit', function (e
         phone: regPhone,
         address: regAddress
     };
+console.log(newUser);
 
     // Save the new user in the users array and localStorage
     users.push(newUser);
@@ -235,6 +265,7 @@ document.getElementById('register-form')?.addEventListener('submit', function (e
     window.location.href = 'index.html'; // Redirect to login
     login.classList.add("show-login")
 });
+
 
 /*=============== login handle ===============*/
 // Login logic
@@ -246,16 +277,132 @@ loginFrom.addEventListener('submit', function (e) {
     const password = document.getElementById('password').value;
     const errorMessageDiv = document.getElementById('error-message');
 
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        
-        window.location.href = 'index.html'; // Redirect to home
-        isAuthanticated=true
-        login.classList.remove("show-login")
-    } else {
-        errorMessageDiv.textContent = 'Invalid email or password!';
+
+/*=============== dynamic products  ===============*/
+let shopItems=document.getElementById("shop__items");
+let cartPricesInSection=document.getElementById("cart__prices")
+let emptyCard=document.getElementById("empty-card")
+let basket=JSON.parse(localStorage.getItem('productSelected')) ||[]
+let products=[];
+let label = document.getElementById("cart__prices-total")
+let cartContainer=document.getElementById("cart__container")
+let totalCartItems=document.getElementById("cart__prices-item")
+    // ###################################################################increament number
+
+window.addEventListener('DOMContentLoaded', () => {
+fetch('/assets/json/products.json')
+        .then(response => response.json())
+        .then(data => {
+            return data.forEach(product => {
+                products.push(product)
+                const productDiv = document.createElement('div');
+                productDiv.classList.add('product');
+                productDiv.innerHTML =`<div class="shop__content" id="${product.id}">
+                                            <a href="details.html"  '>
+                                                <div class="shop__tag" >${product.category}</div>
+                                                <img src="${product.images[0]}" alt="${product.name}" class="shop__img">
+                                                <h3 class="shop__title">${product.name}</h3>
+                                                <span class="shop__subtitle">Accessory </span>
+                                                <div class="shop__prices">
+                                                    <span class="shop__price">$${product.price}</span>
+                                                    <span class="shop__discounts">$${product.stock}</span>
+                                                </div>
+                                            </a>
+                                            <i class="bx bx-cart-alt shop__icon add-to-card button shop__button" onclick="addToCart(${product.id})"></i>
+                                        </div>`;
+                                        if(shopItems){
+
+                                            shopItems.appendChild(productDiv);
+                                        }
+                 return products
+            });
+        });
+         // Add to cart function
+    window.addToCart = function (productId) {
+        fetch('/assets/json/products.json')
+            .then(response => response.json())
+            .then(data => {
+            products.push(data)
+                // const product = data.find(p => p.id === productId);
+                //     products.push(product)
+                // carts=carts.filter(cart=>cart.id!=product.id)
+                increament(productId)
+                displayCart();
+            });
+    };
+    // Display cart items
+    displayCart()
+    
+    totalAmount()
+})
+function displayCart() {
+    fetch('/assets/json/products.json')
+        .then(response => response.json())
+        .then(data => {
+            if (basket.length !== 0) {
+        emptyCard.innerHTML=``;
+         (cartContainer.innerHTML = basket.map((item) => {
+            let productSelected;
+            
+            productSelected = data.find((x) => x.id === item.id)||[]
+            if(productSelected){
+            // for empty card section
+           
+        return  `   <article class="cart__card">
+                        <div class="cart__box">
+                            <img src="${productSelected.images[0]}" alt="${productSelected.name}" class="cart__img">
+                        </div>
+                        <div class="cart__details">
+                                <h3 class="cart__title">
+                                ${productSelected.name}
+                                </h3>
+                                <span class="cart__price">$${productSelected.price * item.item}</span>
+                            <div class="cart__amount">
+                                <div class="cart__amount-content">
+                                    <span class="cart__amount-box">
+                                        <i class="bx bx-minus" onclick="decrement(${productSelected.id})"></i>
+                                    </span>
+                                    <span class="cart__amount-number" data-id=${productSelected.id}>${productSelected ? item.item : "1"}
+                                    </span>
+                                    <span class="cart__amount-box">
+                                        <i class="bx bx-plus"  onclick="increament(${productSelected.id})"></i>
+                                    </span>
+                                </div>
+                                <i class="bx bx-trash-alt cart__amount-trash" onclick="removeItem(${productSelected.id})"></i>
+                            </div>
+                        </div>
+                    </article>`;
+                }
+            }).join(" "))}else{
+                //################################# for empty card section
+                    emptyCard.innerHTML =`
+                    <h2 class='cart-empty'>
+                    Cart is empty </h2>
+                    `;
+                    
+                    return cartContainer.innerHTML=``
+                }
+        })
+           
     }
+
+
+
+let increament = (id) => {
+    let selectedItem = id
+    let productIsSelectedAgain = basket.find((cart) => cart.id == selectedItem)
+    if (!productIsSelectedAgain ) {
+        basket.push(
+            {
+                id: selectedItem,
+                item: 1,
+            }
+        )
+        
+    } else {
+        productIsSelectedAgain.item+=1; 
+    }
+
 });
 /*=============== dynamic products  ===============*/
 let shopItems=document.getElementById("shop__items");
@@ -381,6 +528,7 @@ let increament = (id) => {
     } else {
         productIsSelectedAgain.item+=1; 
     }
+
     update(selectedItem);
     localStorage.setItem("productSelected", JSON.stringify(basket))
     displayCart()
@@ -420,7 +568,12 @@ function update (id)  {
 }
 let totalSumProduct = () => {
     let basketSum = document.querySelector(".cart-counter")
-    return basketSum.innerHTML = basket.reduce((x, y) => x + y.item, 0)
+
+    if(basketSum){
+
+        return basketSum.innerHTML = basket.reduce((x, y) => x + y.item, 0)
+    }
+
 }
 totalSumProduct()
 let totalAmount = () => {
@@ -461,8 +614,4 @@ let removeItem = (id) => {
     localStorage.setItem("productSelected", JSON.stringify(basket))
 
 }
-//  cartPricesInSection.innerHTML=`<span class="cart__prices-item">${totalSumProduct()} item</span>
-//             <span class="cart__prices-total" id="cart__prices-total">$0 </span>`
 
-// cartPricesInSection.innerHTML=`<span class="cart__prices-item">0 item</span>
-//                     <span class="cart__prices-total" id="cart__prices-total">$0 </span>`;
