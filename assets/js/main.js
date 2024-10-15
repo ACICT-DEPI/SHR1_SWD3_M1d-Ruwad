@@ -155,7 +155,11 @@ function themeColors() {
         {
             document.querySelector(".js-theme-color-item.active").classList.remove("active");
         }
-        document.querySelector("[data-js-theme-color=" + localStorage.getItem("color") + "]").classList.add("active");
+        let classFromLocal=document.querySelector("[data-js-theme-color=" + localStorage.getItem("color") + "]")
+        if(classFromLocal){
+
+            classFromLocal.classList.add("active");
+        }
     }
     if (localStorage.getItem("color") !== null) 
     {
@@ -164,7 +168,11 @@ function themeColors() {
     else
     {
         const defaultColor = colorStyle.getAttribute("href").split("/").pop().split(".").shift();
-        document.querySelector("[data-js-theme-color" + defaultColor + "]").classList.add("active");
+        let colorDefaultColor=document.querySelector("[data-js-theme-color" + defaultColor + "]")
+        if(colorDefaultColor){
+
+            colorDefaultColor.classList.add("active");
+        }
     }
 
 }
@@ -286,53 +294,75 @@ let totalCartItems=document.getElementById("cart__prices-item")
 
 // ################################################################### create shop page producr
 window.addEventListener('DOMContentLoaded', () => {
-fetch('assets/json/products.json')
-// fetch('/assets/json/products.json')
+  
+         // Add to cart function
+    
+    // Display cart items
+    displayDetails()
+    getProducts()
+    displayDetails()
+    displayCart()
+    totalAmount()
+    
+ 
+})
+window.addToCart = function (id) {
+    fetch('assets/json/products.json')
         .then(response => response.json())
         .then(data => {
-            return data.forEach(product => {
-                products.push(product)
-                const productDiv = document.createElement('div');
-                productDiv.classList.add('product');
-                productDiv.innerHTML =`<div class="shop__content" id="${product.id}">
-                                            <a href="details.html"  '>
-                                                <div class="shop__tag" >${product.category}</div>
-                                                <img src="${product.images[0]}" alt="${product.name}" class="shop__img">
-                                                <h3 class="shop__title">${product.name}</h3>
-                                                <span class="shop__subtitle">Accessory </span>
-                                                <div class="shop__prices">
-                                                    <span class="shop__price">$${product.price}</span>
-                                                    <span class="shop__discounts">$${product.stock}</span>
-                                                </div>
-                                            </a>
-                                            <i class="bx bx-cart-alt shop__icon add-to-card button shop__button" onclick="addToCart(${product.id})"></i>
-                                        </div>`;
-                                        if(shopItems){
-
-                                            shopItems.appendChild(productDiv);
-                                        }
-                 return products
-            });
+        products.push(data)
+            increament(id)
+            displayCart();
+            getProducts()
         });
-         // Add to cart function
-    window.addToCart = function (productId) {
-        fetch('assets/json/products.json')
+};
+
+
+// ###################################################################displayCart to create card section item
+
+function getProducts(){
+    fetch('assets/json/products.json')
             .then(response => response.json())
             .then(data => {
-            products.push(data)
-                // const product = data.find(p => p.id === productId);
-                //     products.push(product)
-                // carts=carts.filter(cart=>cart.id!=product.id)
-                increament(productId)
-                displayCart();
+                return data.forEach(product => {
+                    products.push(product)
+                    const productDiv = document.createElement('div');
+                    productDiv.classList.add('product');
+                    productDiv.innerHTML =`<div class="shop__content" id="${product.id}">
+                                                <a class="product-link" style="cursor:pointer" data-ib="${product.id}" data-href="details.html">
+                                                    <div class="shop__tag" >${product.category}</div>
+                                                    <img src="${product.images[0]}" alt="${product.name}" class="shop__img">
+                                                    <h3 class="shop__title">${product.name}</h3>
+                                                    <span class="shop__subtitle">Accessory </span>
+                                                    <div class="shop__prices">
+                                                        <span class="shop__price">$${product.price}</span>
+                                                        <span class="shop__discounts">$${product.stock}</span>
+                                                    </div>
+                                                </a>
+                                                <i class="bx bx-cart-alt shop__icon add-to-card button shop__button" onclick="addToCart(${product.id})"></i>
+                                            </div>`;
+                                            if(shopItems){
+                                                shopItems.appendChild(productDiv);
+                                            }
+    // ############################################ save id for checked product in localStorage
+                                            document.querySelectorAll('.product-link').forEach(link => {
+                                                link.addEventListener('click', (event) => {
+                                                    const productId = link.getAttribute('data-ib');
+                                                    const href = link.getAttribute('data-href');
+                                            
+                                                    // Save product ID to local storage
+                                                    localStorage.setItem('selectedProductId', productId);
+                                                    // Redirect to the target page after saving
+                                                    setTimeout(() => {
+                                                        window.location.href = href;
+                                                    }, 100); // Delay for local storage operation
+                                                });
+                                            });
+                                           
+                     return products
+                });
             });
-    };
-    // Display cart items
-    displayCart()
-    
-    totalAmount()
-})
-// ###################################################################displayCart to create card section item
+        }
 
 function displayCart() {
     fetch('assets/json/products.json')
@@ -341,38 +371,40 @@ function displayCart() {
             if (basket.length !== 0) {
         emptyCard.innerHTML=``;
          (cartContainer.innerHTML = basket.map((item) => {
-            let productSelected;
+            let productSelectedToCard;
             
-            productSelected = data.find((x) => x.id === item.id)||[]
-            if(productSelected){
+            productSelectedToCard = data.find((x) => x.id === item.id)||[]
+            if(productSelectedToCard){
             // for empty card section
            
-        return  `   <article class="cart__card">
+                return `<article class="cart__card">
                         <div class="cart__box">
-                            <img src="${productSelected.images[0]}" alt="${productSelected.name}" class="cart__img">
+                            <img src="${productSelectedToCard.images[0]}" alt="${productSelectedToCard.name}" class="cart__img">
                         </div>
                         <div class="cart__details">
                                 <h3 class="cart__title">
-                                ${productSelected.name}
+                                ${productSelectedToCard.name}
                                 </h3>
-                                <span class="cart__price">$${productSelected.price * item.item}</span>
+                                <span class="cart__price">$${productSelectedToCard.price * item.item}</span>
                             <div class="cart__amount">
                                 <div class="cart__amount-content">
                                     <span class="cart__amount-box">
-                                        <i class="bx bx-minus" onclick="decrement(${productSelected.id})"></i>
+                                        <i class="bx bx-minus" onclick="decrement(${productSelectedToCard.id})"></i>
                                     </span>
-                                    <span class="cart__amount-number" data-id=${productSelected.id}>${productSelected ? item.item : "1"}
+                                    <span class="cart__amount-number" data-id=${productSelectedToCard.id}>${productSelectedToCard ? item.item : "1"}
                                     </span>
                                     <span class="cart__amount-box">
-                                        <i class="bx bx-plus"  onclick="increament(${productSelected.id})"></i>
+                                        <i class="bx bx-plus"  onclick="increament(${productSelectedToCard.id})"></i>
                                     </span>
                                 </div>
-                                <i class="bx bx-trash-alt cart__amount-trash" onclick="removeItem(${productSelected.id})"></i>
+                                <i class="bx bx-trash-alt cart__amount-trash" onclick="removeItem(${productSelectedToCard.id})"></i>
                             </div>
                         </div>
                     </article>`;
                 }
-            }).join(" "))}else{
+            }).join(" "))
+        }
+            else{
                 //################################# for empty card section
                     emptyCard.innerHTML =`
                     <h2 class='cart-empty'>
@@ -391,6 +423,8 @@ function displayCart() {
 
 let increament = (id) => {
     let selectedItem = id
+
+    
     let productIsSelectedAgain = basket.find((cart) => cart.id == selectedItem)
     if (!productIsSelectedAgain ) {
         basket.push(
@@ -406,6 +440,7 @@ let increament = (id) => {
     update(selectedItem);
     localStorage.setItem("productSelected", JSON.stringify(basket))
     displayCart()
+    displayDetails()
 }
 
 // ###################################################################decrement number
@@ -421,6 +456,7 @@ let increament = (id) => {
     basket = basket.filter((cart) => cart.item !== 0)
     localStorage.setItem("productSelected", JSON.stringify(basket))
     displayCart()
+    displayDetails()
 }
 // ###################################################################EVERY update
 
@@ -497,3 +533,96 @@ let removeItem = (id) => {
     localStorage.setItem("productSelected", JSON.stringify(basket))
 
 }
+/*=============== dynamic details product  ===============*/
+
+// On details.html
+
+
+
+function displayDetails(){
+    const productId = localStorage.getItem('selectedProductId');
+    
+    if (!productId) {
+       
+        return;
+    }
+    fetch('assets/json/products.json')
+    .then(response => response.json())
+    .then(products => {
+        const product = products.find(x => x.id === parseInt(productId));
+        if (product) {
+            // if (basket.length !== 0) {
+                
+            // displayProductDetails(product);
+            item=basket.find(baske=>baske.id=product.id)
+            let productDetails=document.getElementById("product__details")
+            if(productDetails){
+
+           
+            productDetails.innerHTML=` <div class="product__images grid">
+                <div class="product__img">
+                    <div class="details__img-tag">New</div>
+                   
+                    <img src="${product.images[0]?product.images[0]:"assets/img/details-2.png"}" class="${product.name}" alt="details-1">
+                </div>
+                <div class="product__img ${!product.images[1]?"not-found":""}">
+                    <img src="${product.images[1]?product.images[1]:"assets/img/details-2.png"}" class="${product.name}" alt="details-2">
+                </div>
+                <div class="product__img ${!product.images[2]?"not-found":""}">
+                    <img src="${product.images[2]?product.images[2]:"assets/img/details-2.png"}" class="${product.name}" alt="details-3">
+                </div>
+                <div class="product__img ${!product.images[3]?"not-found":""}">
+                    <img src="${product.images[3]?product.images[3]:""}" class="${product.name}  " alt="details-4">
+                </div>
+            </div>
+            <div class="product__info">
+                <p class="details__subtitle">> ${product.category}</p>
+                <h3 class="details__title product-title">${product.name}</h3>
+
+                <div class="rating">
+                    <div class="stars">
+                        <i class="bx bxs-star"></i>
+                        <i class="bx bxs-star"></i>
+                        <i class="bx bxs-star"></i>
+                        <i class="bx bxs-star"></i>
+                        <i class="bx bx-star"></i>
+                    </div>
+                    <span class="reviews__count">${product.rating} Rate</span>
+                </div>
+
+                <div class="details__prices">
+                    <span class="details__price">$${product.price}</span>
+                    <span class="details__discount">$${product.stock}</span>
+                    <span class="discount__percentage">${Math.floor(product.price/product.stock*100)}% OFF</span>
+                </div>
+
+                <div class="details__description">
+                    <h3 class="description__title">Product Details</h3>
+                    <div class="description__details">
+                        <p class=".product-description">${product.description}</p>
+                    </div>
+                </div>
+
+                <div class="cart__amount">
+                    <div class="cart__amount-content">
+                        <span class="cart__amount-box">
+                            <i class="bx bx-minus" onclick="decrement(${product.id})" ></i>
+                        </span>
+                        <span class="cart__amount-number">${item ? item.item : "0"}</span>
+                        <span class="cart__amount-box">
+                            <i class="bx bx-plus" onclick="increament(${product.id})" ></i>
+                        </span>
+                    </div>
+                    <i class="bx bx-heart cart__amount-heart"></i>
+                </div>
+                <a href="#" class="button">Add To Cart</a>
+            </div>`
+        }
+    // }    
+    } else {
+            console.error('Product not found.');
+        }
+    });
+}
+
+
