@@ -83,8 +83,9 @@ else{
 }
 }
 window.addEventListener("scroll",scrollUp)
-/*=============== LIGHT BOX ===============*/
 
+
+/*=============== LIGHT BOX ===============*/
 
 /*=============== QUESTIONS ACCORDION ===============*/
 
@@ -118,7 +119,58 @@ const toggleItem = (item) => {
 }
 
 
+
 /*=============== STYLE SWITCHER ===============*/
+const styleSwitcherToggle = document.querySelector(".style__switcher-toggler");
+styleSwitcherToggle.addEventListener("click", () => {
+    document.querySelector(".style__switcher").classList.toggle("open");
+});
+
+// HIDE STYLE SWITCHER ON SCROLL
+window.addEventListener("scroll", () => {
+    if (document.querySelector(".style__switcher").classList.contains("open")) 
+    {
+        document.querySelector(".style__switcher").classList.remove("open");
+    }
+});
+
+// THEME COLORS
+function themeColors() {
+    const colorStyle = document.querySelector(".js-color-style"),
+        themeColorsContainer = document.querySelector(".js-theme-colors");
+    
+    themeColorsContainer.addEventListener("click", ({target}) => {
+        if (target.classList.contains("js-theme-color-item"))
+        {
+            localStorage.setItem("color", target.getAttribute("data-js-theme-color"));
+            setColors();
+        }
+    });
+    function setColors() {
+        let path = colorStyle.getAttribute("href").split("/");
+        path = path.slice(0, path.length - 1);
+        colorStyle.setAttribute("href", path.join("/") + "/" + localStorage.getItem("color") + ".css");
+
+        if (document.querySelector(".js-theme-color-item.active")) 
+        {
+            document.querySelector(".js-theme-color-item.active").classList.remove("active");
+        }
+        document.querySelector("[data-js-theme-color=" + localStorage.getItem("color") + "]").classList.add("active");
+    }
+    if (localStorage.getItem("color") !== null) 
+    {
+        setColors();
+    }
+    else
+    {
+        const defaultColor = colorStyle.getAttribute("href").split("/").pop().split(".").shift();
+        document.querySelector("[data-js-theme-color" + defaultColor + "]").classList.add("active");
+    }
+
+}
+themeColors();
+
+
 
 /*=============== login handle ===============*/
 /*=============== SHOW LOGIN ===============*/
@@ -204,15 +256,21 @@ document.getElementById('register-form')?.addEventListener('submit', function (e
         phone: regPhone,
         address: regAddress
     };
-console.log(newUser);
 
     // Save the new user in the users array and localStorage
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
-    
-    window.location.href = 'index.html'; // Redirect to login
-    login.classList.add("show-login")
+    // document.getElementById("login__redirect").addEventListener("click",()=>{
+        
+    //     window.location.href = 'index.html'; // Redirect to login
+    //     setInterval(()=>{
+
+    //         login.classList.add("show-login")
+    //     },3000)
+    // })
 });
+
+
 
 
 /*=============== dynamic products  ===============*/
@@ -224,10 +282,12 @@ let products=[];
 let label = document.getElementById("cart__prices-total")
 let cartContainer=document.getElementById("cart__container")
 let totalCartItems=document.getElementById("cart__prices-item")
-    // ###################################################################increament number
 
+
+// ################################################################### create shop page producr
 window.addEventListener('DOMContentLoaded', () => {
-fetch('/assets/json/products.json')
+fetch('assets/json/products.json')
+// fetch('/assets/json/products.json')
         .then(response => response.json())
         .then(data => {
             return data.forEach(product => {
@@ -256,7 +316,7 @@ fetch('/assets/json/products.json')
         });
          // Add to cart function
     window.addToCart = function (productId) {
-        fetch('/assets/json/products.json')
+        fetch('assets/json/products.json')
             .then(response => response.json())
             .then(data => {
             products.push(data)
@@ -272,8 +332,10 @@ fetch('/assets/json/products.json')
     
     totalAmount()
 })
+// ###################################################################displayCart to create card section item
+
 function displayCart() {
-    fetch('/assets/json/products.json')
+    fetch('assets/json/products.json')
         .then(response => response.json())
         .then(data => {
             if (basket.length !== 0) {
@@ -324,6 +386,8 @@ function displayCart() {
     }
 
 
+    
+// ###################################################################increament number
 
 let increament = (id) => {
     let selectedItem = id
@@ -359,34 +423,41 @@ let increament = (id) => {
     displayCart()
 }
 // ###################################################################EVERY update
-function update (id)  {
-    let selectditems = basket.find((cart) => cart.id == id)
-    if (selectditems.item < 0) {
-        return
-    }
-    else {
-   if(document.querySelector(`[data-id="${id}"]`)){
-    
-       document.querySelector(`[data-id="${id}"]`).innerHTML=selectditems.item
-       if(selectditems.item<=0){
-        
-       }
-   }
-    }
-    totalAmount()
-    totalSumProduct()
-}
-let totalSumProduct = () => {
-    let basketSum = document.querySelector(".cart-counter")
-    if(basketSum){
 
-        return basketSum.innerHTML = basket.reduce((x, y) => x + y.item, 0)
+function update (id)  {
+
+                            let selectditems = basket.find((cart) => cart.id == id)
+                            if (selectditems.item < 0) {
+                                return
+                            }
+                            else {
+                        if(document.querySelector(`[data-id="${id}"]`)){
+                            
+                            document.querySelector(`[data-id="${id}"]`).innerHTML=selectditems.item
+                            if(selectditems.item<=0){
+                                
+                            }
+                        }
+                            }
+                            totalAmount()
+                            totalSumProduct()
+                        }
+// ###################################################################totalSumProduct
+
+let totalSumProduct = () => 
+    {
+        let basketSum = document.querySelector(".cart-counter")
+        if(basketSum){
+
+            return basketSum.innerHTML = basket.reduce((x, y) => x + y.item, 0)
+        }
     }
-}
 totalSumProduct()
+
+// ###################################################################totalAmount
 let totalAmount = () => {
     if (basket.length !== 0) {
-        fetch('/assets/json/products.json')
+        fetch('assets/json/products.json')
         .then(response => response.json())
         .then(data => {
         let ammount = basket.map((x) => {
@@ -406,12 +477,16 @@ let totalAmount = () => {
     }
 }
 totalAmount()
+// ###################################################################removeAll
+
 let removeAll = () => {
     basket = []
     createCartItem();
     totalSumProduct()
     localStorage.setItem("productSelected", JSON.stringify(carts))
 }
+// ###################################################################removeItem
+
 let removeItem = (id) => {
     let itemselected = id
     basket = basket.filter((x) => x.id !== itemselected
