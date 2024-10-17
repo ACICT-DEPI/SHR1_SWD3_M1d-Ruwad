@@ -1086,6 +1086,10 @@ button:hover {
 /* ============== cHECKOUT ================ */
 .checkout {
     /* background-color: #4cae4c; */
+    position: relative;
+    top: 100px;
+    left: 0;
+    margin: 30px 0;
 }
 
 .checkout__container {
@@ -1167,6 +1171,21 @@ button:hover {
     margin: 10px;
     padding: 10px;
     border-radius: 8px;
+    border: 1px solid var(--shadow);
+    transition: 0.5s  border ease-in-out;
+}
+
+.checkout__group .form__input:hover {
+    border: 1px solid var(--first-color);
+}
+
+.checkout__group .form {
+    text-align: center;
+}
+
+.checkout__group .form h3 {
+    margin: 10px;
+    font-size: var(--h3-font-size);
 }
 /*=============== FAQ PAGE ===============*/
 .questions__container
@@ -1556,7 +1575,7 @@ iframe
     right: -100%;
     padding: 3.5rem 2rem;
     transition: .3s;
-  
+
     .cart__close{
         font-size: 2rem;
         color: var(--title-color);
@@ -2205,6 +2224,18 @@ iframe
     position: relative;
     left: 15%;
     }
+
+    .checkout__container {
+    grid-template-columns: repeat(1 , 1fr);
+    gap: 30px;
+    }
+    
+    .checkout__group  {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 30px;
+    }
+    
 }
 
 @media screen and (max-width: 576px) 
