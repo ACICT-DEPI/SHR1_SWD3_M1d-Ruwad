@@ -293,12 +293,14 @@ main.registration-box {
         padding: 10px;
         
     }
+
     p{
         a{
             color: var(--first-color);
         }
     }
 }
+
 .main form {
     display: flex;
     flex-direction: column;
@@ -1237,6 +1239,29 @@ button:hover {
     padding: 0.25rem 0.5rem 0.5rem 0;
 }
 
+.map__container
+{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: var(--mb-2);
+}
+
+h1
+{
+    color: var(--first-color);
+    margin-bottom: var(--mb-2);
+}
+
+iframe
+{
+    width: 100%;
+    height: 500px;
+}
+
 /*=============== FOOTER ===============*/
 .footer
 {
@@ -2073,7 +2098,6 @@ button:hover {
         row-gap: 2rem;
     }
 
-
     .details__container
     {
         grid-template-columns: 0.8fr;
@@ -2158,6 +2182,10 @@ button:hover {
         row-gap: 2rem;
     }
 
+    .map__container
+    {
+        height: 500px;
+    }
 
     .details__container
     {
