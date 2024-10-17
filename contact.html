@@ -13,7 +13,7 @@
 
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/colors/color-1.css">
+    <link rel="stylesheet" class="js-color-style" href="assets/css/colors/color-1.css">
 
     <title>Responsive e-commerce website - Crypticalcoder</title>
 </head>
@@ -115,6 +115,7 @@
             <h2 class="breadcrumb__title">Contact Page</h2>
             <h3 class="breadcrumb__subtitle">Home > <span>Contact us</span></h3>
         
+        
             <div class="contact__container grid">
                 <div>
                     <div class="contact__information">
@@ -137,7 +138,7 @@
                         <i class="bx bx-map contact__icon"></i>
                         <div>
                             <h3 class="contact__title">Location</h3>
-                            <span class="contact__subtitle">9 street, Alsharqia - Egypt</span>
+                            <span class="contact__subtitle"> محافظة الشرقية ، الزقازيق، كلية الحاسبات والمعلومات جامعة الزقازيق</span>
                         </div>
                     </div>
                 </div>
@@ -169,6 +170,12 @@
                     </div>
                 </form>
             </div>
+            <div class="map__container grid">
+                <!-- <h1>Location Map</h1> -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10960.172936248096!2d31.521347806948388!3d30.58681053578702!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f7f125ba86a5d3%3A0xb34e3748fa9ee184!2z2YPZhNmK2Kkg2KfZhNit2KfYs9io2KfYqiDZiNin2YTZhdi52YTZiNmF2KfYqiDYrNin2YXYudipINin2YTYstmC2KfYstmK2YI!5e0!3m2!1sar!2seg!4v1729095671846!5m2!1sar!2seg" 
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
         </section>
     </main>
 
@@ -237,7 +244,31 @@
     </a>
     
     <!--=============== STYLE SWITCHER ===============-->
-    
+    <div class="style__switcher">
+        <div class="style__switcher-toggler s__icon">
+            <i class="bx bx-cog bx-spin"></i>
+        </div>
+
+        <h4>Theme Colors</h4>
+
+        <div class="theme__colors js-theme-colors">
+            <button type="button" data-js-theme-color="color-1" class="js-theme-color-item active theme__button color-1">
+                <i class="bx bx-check"></i>
+            </button>
+            <button type="button" data-js-theme-color="color-2" class="js-theme-color-item theme__button color-2">
+                <i class="bx bx-check"></i>
+            </button>
+            <button type="button" data-js-theme-color="color-3" class="js-theme-color-item theme__button color-3">
+                <i class="bx bx-check"></i>
+            </button>
+            <button type="button" data-js-theme-color="color-4" class="js-theme-color-item theme__button color-4">
+                <i class="bx bx-check"></i>
+            </button>
+            <button type="button" data-js-theme-color="color-5" class="js-theme-color-item theme__button color-5">
+                <i class="bx bx-check"></i>
+            </button>
+        </div>
+    </div>
     <!--=============== SWIPER JS ===============-->
     <script src="assets/js/swiper-bundle.min.js"></script>
 
