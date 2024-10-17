@@ -1060,7 +1060,91 @@ button:hover {
 
 /*=============== CART PAGE ===============*/
 
+/* ============== cHECKOUT ================ */
+.checkout {
+    /* background-color: #4cae4c; */
+}
 
+.checkout__container {
+    grid-template-columns: repeat(2 , 1fr);
+    width: 80%;
+    margin: auto;
+    gap: 30px;
+}
+
+.checkout__group:nth-child(2) {
+    border : 2px solid var(--shadow);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    width: 80%;
+}
+
+.checkout__group .section__title {
+    font-size: var(--h2-font-size);
+    margin-bottom: var(--mb-1);
+}
+
+.checkout__group table {
+    width: 100%;
+}
+
+.checkout__title {
+    font-size: var(--small-font-size);
+}
+
+.order__table tr th,
+.order__table tr td {
+    border: 1px solid var(--shadow);
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.order__table tr th {
+    color: var(--title-color);
+    font-size: var(--small-font-size);
+}
+
+.order__img {
+    width: 80px;
+}
+
+.table__quantity,
+.order__subtitle {
+    font-size: var(--small-font-size);
+}
+
+.order__grand-total {
+    color: var(--first-color);
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-bold);
+}
+
+.payment__methods {
+    margin-block: 1.5rem 2rem ;
+}
+
+.payment__title {
+    margin-bottom: 1.5rem;
+    font-size: var(--h3-font-size);
+}
+
+.payment__option {
+    margin-bottom: 1rem;
+}
+
+.payment__input {
+    accent-color: var(--first-color);
+}
+
+.payment__label {
+    font-size: var(--small-font-size);
+}
+
+.checkout__group .form__input {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
 /*=============== FAQ PAGE ===============*/
 .questions__container
 {
