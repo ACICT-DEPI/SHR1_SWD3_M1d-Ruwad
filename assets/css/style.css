@@ -278,24 +278,26 @@ position: relative;
 
 /*=============== MAIN ===============*/
 
-.registration-box {
-    margin-top: 50px;
+main.registration-box {
+    margin-top: 100px;
     margin-bottom: 50px;
     background-color: #fff;
     max-width: 450px;
-    height: 60vh;
-    position: relative;
-    top: 70px;
-    left: 700px;
-
+    height: fit-content;
+    margin-inline: auto;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px var(--shadow);
     text-align: center; /* Center all text inside the form-container */
-
     h2{
         padding: 10px;
         
+    }
+
+    p{
+        a{
+            color: var(--first-color);
+        }
     }
 }
 
@@ -420,6 +422,9 @@ button:hover {
 .home__buttons {
     display: flex;
     justify-content: space-between;
+    a.button--link{
+        color: var(--first-color);
+    }
 
 }
 
@@ -980,7 +985,9 @@ button:hover {
     }
     
 }
-
+.not-found{
+    display: none;
+}
 /*=============== ABOUT PAGE ===============*/
 .about__container
 {
@@ -1899,8 +1906,9 @@ iframe
     {
         padding: 2rem 0 1.5rem 0;
         border-radius: 0.75rem;
+        
     }
-
+   
     .shop__img
     {
         width: 120px;
