@@ -369,7 +369,8 @@ function displayCart() {
         .then(response => response.json())
         .then(data => {
             if (basket.length !== 0) {
-        emptyCard.innerHTML=``;
+        emptyCard.innerHTML=`<a href="cart.html"><button class="button">Go To Cart</button></a>
+             `;
          (cartContainer.innerHTML = basket.map((item) => {
             let productSelectedToCard;
             
@@ -377,7 +378,9 @@ function displayCart() {
             if(productSelectedToCard){
             // for empty card section
            
-                return `<article class="cart__card">
+                return `
+                 
+                          <article class="cart__card">
                         <div class="cart__box">
                             <img src="${productSelectedToCard.images[0]}" alt="${productSelectedToCard.name}" class="cart__img">
                         </div>
